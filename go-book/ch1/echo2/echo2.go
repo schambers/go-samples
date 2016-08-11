@@ -7,10 +7,7 @@ import (
 )
 
 func main() {
-	s, sep := "", " "
-	for _, arg := range os.Args[1:] {
-		s += sep + arg
-		sep = " "
+	for index, arg := range os.Args[0:] {
+		fmt.Printf("Argument:%s, Index:%d\n", arg, index-1)
 	}
-	fmt.Println(s)
 }
