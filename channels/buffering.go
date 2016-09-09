@@ -1,18 +1,22 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+	"time"
+)
+
+func worker(done chan bool) {
+	fmt.Print("working...")
+	time.Sleep(time.Second)
+	fmt.Print("done")
+
+	done <- true
+}
 
 func main() {
 
-	messages := make(chan string, 4)
+	done := make(chan bool, 1)
+	go worker(done)
 
-	messages <- "buffered"
-	messages <- "channel"
-	messages <- "buffer 3"
-	messages <- "buffer 4"
-
-	fmt.Println(<-messages)
-	fmt.Println(<-messages)
-	fmt.Println(<-messages)
-	fmt.Println(<-messages)
+	<-done
 }
